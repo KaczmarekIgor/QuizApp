@@ -1,36 +1,51 @@
 package com.example.customlogin.controller;
 
 
-import com.example.customlogin.form.QuizForm;
+import com.example.customlogin.exception.UserExistsException;
+import com.example.customlogin.form.UserRegisterForm;
+import com.example.customlogin.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
 
-    private List<QuizForm> quiz;
+    private final UserService userService;
 
-    public HomeController() {
-        this.quiz = new ArrayList<>();
-        quiz.add(new QuizForm("Kulinaria","Wojciech Stawowy czy Wojciech Schabowy kto prowadzil miedzy innymi Arke i Cracovie?","??????"));
-        quiz.add(new QuizForm("Savoir-Vivre","Ja to sie nie wpierdalam czy nie wpraszam? Jak swoja szkoleniowa taktyke opisywal Pawel Janas","?????"));
-        quiz.add(new QuizForm("Jezyk Polski","Franciszek Smuda to trener skuteczny. Zapowiedzial walke o spadek i rzeczywiscie spadl. Z jakim klubem?","?????"));
-    }
-
-    //udostepniamy liste wszytskich quizow
-    @GetMapping("/home")
-    public ModelAndView quizList() {
-       ModelAndView mvn = new ModelAndView("home");
-       mvn.addObject("quizList", quiz);
-       return mvn;
+    public HomeController(UserService userService) {
+        this.userService = userService;
     }
 
 
+    @GetMapping("/registration")
+    public ModelAndView getUserFormPage() {
+        ModelAndView mvn = new ModelAndView("registration");
+        mvn.addObject("form", new UserRegisterForm());
+        return mvn;
+    }
 
+    @PostMapping("/registration")
+    public ModelAndView createUser(@ModelAttribute("form")
+                                   @Validated UserRegisterForm userRegisterForm,
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("registration");
+        }
+        try {
+            userService.createUser(userRegisterForm);
+        } catch (UserExistsException e) {
+            ModelAndView modelAndView = new ModelAndView("registration");
+            modelAndView.addObject("message", e.getMessage());
+            return modelAndView;
+        }
+        return new ModelAndView("redirect:/");
+    }
 }

@@ -1,32 +1,56 @@
 package com.example.customlogin.config;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
-@EnableWebSecurity
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl")
+                                  UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    private final String[] MATCHERS = {"/", "/quiz", "/login", "/h2/**",
+            "/registration"};
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //
-        http
+        http.csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "login").permitAll()
+                .antMatchers(MATCHERS)
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .usernameParameter("userName")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
                 .and()
-                .logout();
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login");
 
     }
 }
