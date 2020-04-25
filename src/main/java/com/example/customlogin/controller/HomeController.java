@@ -46,6 +46,8 @@ public class HomeController {
             modelAndView.addObject("message", e.getMessage());
             return modelAndView;
         }
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/quiz");
     }
 }
+
+
