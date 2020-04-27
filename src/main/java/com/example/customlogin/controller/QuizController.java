@@ -18,9 +18,11 @@ public class QuizController {
 
     public QuizController() {
         this.quiz = new ArrayList<>();
-        quiz.add(new QuizForm("Kulinaria", "Wojciech Stawowy czy Wojciech Schabowy kto prowadzil miedzy innymi Arke i Cracovie?", "??????"));
-        quiz.add(new QuizForm("Savoir-Vivre", "Ja to sie nie wpierdalam czy nie wpraszam? Jak swoja szkoleniowa taktyke opisywal Pawel Janas", "?????"));
-        quiz.add(new QuizForm("Jezyk Polski", "Franciszek Smuda to trener skuteczny. Zapowiedzial walke o spadek i rzeczywiscie spadl. Z jakim klubem?", "?????"));
+        quiz.add(new QuizForm("Kategoria - Kulinaria", "Wojciech Stawowy czy Wojciech Schabowy kto prowadzil miedzy innymi Arke i Cracovie?", "??????"));
+        quiz.add(new QuizForm("Kategoria - Savoir-Vivre", "Ja to sie nie wpierdalam czy nie wpraszam? Jak swoja szkoleniowa taktyke opisywal Pawel Janas", "?????"));
+        quiz.add(new QuizForm("Kategoria - Jezyk Polski", "Franciszek Smuda to trener skuteczny. Zapowiedzial walke o spadek i rzeczywiscie spadl. Z jakim klubem?", "?????"));
+        quiz.add(new QuizForm("Kategoria - Rozmaitosci", "Ile spadkow z Ekstraklasy zaliczyl Mateusz Zytko?", "?????"));
+        quiz.add(new QuizForm("Kategoria - Biologia", "W jakim klubie na poziomowie Ekstraklasy grał Tomasz Sosna", "?????"));
     }
 
     //udostepniamy liste wszytskich quizow
@@ -30,6 +32,8 @@ public class QuizController {
         mvn.addObject("quizList", quiz);
         return mvn;
     }
+
+
 
 
 }

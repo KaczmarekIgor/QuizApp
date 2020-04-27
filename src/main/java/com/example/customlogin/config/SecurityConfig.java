@@ -32,9 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // dzieki tej metodzie mozemy konfigurowac dowolna ilosc uzytkownikow
+        //wylaczamy osbluge csrf tokena
         http.csrf().disable()
           .headers().frameOptions().disable()
                 .and()
+                //pozwalamy wchodzic bez logowania
                 .authorizeRequests()
                 .antMatchers(MATCHERS)
                 .permitAll()

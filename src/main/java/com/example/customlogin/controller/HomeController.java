@@ -2,8 +2,9 @@ package com.example.customlogin.controller;
 
 
 import com.example.customlogin.exception.UserExistsException;
+import com.example.customlogin.form.LoginForm;
 import com.example.customlogin.form.UserRegisterForm;
-import com.example.customlogin.service.UserService;
+import com.example.customlogin.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -27,26 +28,34 @@ public class HomeController {
 
     @GetMapping("/registration")
     public ModelAndView getUserFormPage() {
-        ModelAndView mvn = new ModelAndView("registration");
+        ModelAndView mvn = new ModelAndView("home");
         mvn.addObject("form", new UserRegisterForm());
         return mvn;
     }
+
+    @RequestMapping("/login")
+    public ModelAndView login() {
+        ModelAndView mvn = new ModelAndView("login");
+        mvn.addObject("login", new LoginForm());
+        return mvn;
+    }
+
 
     @PostMapping("/registration")
     public ModelAndView createUser(@ModelAttribute("form")
                                    @Validated UserRegisterForm userRegisterForm,
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("registration");
+            return new ModelAndView("home");
         }
         try {
             userService.createUser(userRegisterForm);
         } catch (UserExistsException e) {
-            ModelAndView modelAndView = new ModelAndView("registration");
+            ModelAndView modelAndView = new ModelAndView("home");
             modelAndView.addObject("message", e.getMessage());
             return modelAndView;
         }
-        return new ModelAndView("redirect:/quiz");
+        return new ModelAndView("redirect:/quizCategory");
     }
 }
 

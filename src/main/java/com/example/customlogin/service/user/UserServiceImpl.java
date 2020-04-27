@@ -1,10 +1,11 @@
-package com.example.customlogin.service;
+package com.example.customlogin.service.user;
 
 
 import com.example.customlogin.entity.UserEntity;
 import com.example.customlogin.exception.UserExistsException;
 import com.example.customlogin.form.UserRegisterForm;
 import com.example.customlogin.repository.UserRepository;
+import com.example.customlogin.service.user.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

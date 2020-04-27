@@ -6,6 +6,31 @@
     <title>Hello World</title>
 </head>
 <body>
-<p th:text="${quizList}"></p>
+<div style="text-align: center;"><h1>QUIZ "SLOWAK Z DZIESIECIU"</h1></div>
+<div style="text-align: center">
+    <tr th:each="quiz: ${quizList}">
+
+        <h1>
+            <td th:text="${quiz.getTitle()}"/>
+            <br>
+        </h1>
+        <td th:text="${quiz.getDescription()}"/>
+        <br>
+        <td th:text="${quiz.getQuestion()}"/>
+        <br>
+        <p>---------------------------------</p>
+</div>
+
+</tr>
+<div style="text-align: center">
+    <form> <h1>QUIZ</h1>
+        <p>Quiz : <input type="text"></p>
+        <p>Category : <input type="text"></p>
+        <p><input type="submit" value="add new Quiz"></p>
+        <p><input type="submit" value="search quiz by category"></p>
+
+
+</form>
+</div>
 </body>
 </html>
