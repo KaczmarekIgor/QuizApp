@@ -30,9 +30,9 @@ public class QuizCategoryController {
 
     }
 
-    @GetMapping("/quizCategory")
+    @GetMapping("/quizPage")
     public ModelAndView quizCategory() {
-        ModelAndView mvn = new ModelAndView("quiz");
+        ModelAndView mvn = new ModelAndView("quizPage");
         mvn.addObject("quizCategory", quizCategoryList);
         return mvn;
     }
