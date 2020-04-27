@@ -8,12 +8,15 @@
 <body>
 <div style="text-align: center;"><h1>QUIZ "SLOWAK Z DZIESIECIU"</h1></div>
 <div style="text-align: center">
-<tr th:each="quizPage: ${quizCategory}">
+    <tr th:each="quizPage: ${quizCategory}">
 
-    <h1>
- <td th:text="${quizPage.getCategory()}"/>
-    </h1>
-</tr>
+        <h1>
+            <td th:text="${quizPage.getCategory()}"/>
+            <p><input type="submit" value="push categories"></p>
+        </h1>
+    </tr>
+
+
 </div>
 </body>
 </html>
