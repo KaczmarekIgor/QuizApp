@@ -1,39 +1,53 @@
 package com.example.customlogin.controller;
 
 
-import com.example.customlogin.form.QuizForm;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.customlogin.dto.QuizDTO;
+import com.example.customlogin.form.NewQuizForm;
+import com.example.customlogin.service.QuizService;
+import com.example.customlogin.validator.NewQuizFormValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/quiz")
 public class QuizController {
 
 
-    private List<QuizForm> quiz;
+    private final QuizService quizService;
+    private final NewQuizFormValidator validator;
 
-    public QuizController() {
-        this.quiz = new ArrayList<>();
-        quiz.add(new QuizForm("Kategoria - Kulinaria", "Wojciech Stawowy czy Wojciech Schabowy kto prowadzil miedzy innymi Arke i Cracovie?", "??????"));
-        quiz.add(new QuizForm("Kategoria - Savoir-Vivre", "Ja to sie nie wpierdalam czy nie wpraszam? Jak swoja szkoleniowa taktyke opisywal Pawel Janas", "?????"));
-        quiz.add(new QuizForm("Kategoria - Jezyk Polski", "Franciszek Smuda to trener skuteczny. Zapowiedzial walke o spadek i rzeczywiscie spadl. Z jakim klubem?", "?????"));
-        quiz.add(new QuizForm("Kategoria - Rozmaitosci", "Ile spadkow z Ekstraklasy zaliczyl Mateusz Zytko?", "?????"));
-        quiz.add(new QuizForm("Kategoria - Biologia", "W jakim klubie na poziomowie Ekstraklasy grał Tomasz Sosna", "?????"));
+
+    public QuizController(QuizService quizService, NewQuizFormValidator validator) {
+        this.quizService = quizService;
+        this.validator = validator;
     }
 
-    //udostepniamy liste wszytskich quizow
-    @GetMapping("/quiz")
-    public ModelAndView quizList() {
-        ModelAndView mvn = new ModelAndView("quiz");
-        mvn.addObject("quizList", quiz);
-        return mvn;
+    @RequestMapping
+    public ModelAndView getQuizPage() {
+        ModelAndView mnv = new ModelAndView("quiz");
+        List<QuizDTO> quizzes = quizService.getAllQuizzes();
+        mnv.addObject("quizzes", quizzes);
+        mnv.addObject("message", "XD");
+        return mnv;
     }
 
+    @RequestMapping("/{idQuiz}")
+    public ModelAndView getQuizById(@PathVariable long idQuiz) {
+        ModelAndView mnv = new ModelAndView("quiz");
+        mnv.addObject("quiz", idQuiz);
+        return mnv;
+    }
 
-
-
+    @GetMapping("/newquiz")
+    public ModelAndView newQuizPage() {
+        ModelAndView mnv = new ModelAndView("newQuiz");
+        mnv.addObject("newQuiz", new NewQuizForm());
+        return mnv;
+    }
 }

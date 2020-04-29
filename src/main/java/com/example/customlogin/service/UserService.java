@@ -1,4 +1,4 @@
-package com.example.customlogin.service.user;
+package com.example.customlogin.service;
 
 import com.example.customlogin.form.UserRegisterForm;
 

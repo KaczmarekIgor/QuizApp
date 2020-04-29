@@ -1,18 +1,15 @@
 package com.example.customlogin.form;
 
 
-
-
-
-public class QuizForm {
+public class NewQuizForm {
     private String title;
     private String description;
     private String question;
 
-    public QuizForm() {
+    public NewQuizForm() {
     }
 
-    public QuizForm(String title, String description, String question) {
+    public NewQuizForm(String title, String description, String question) {
         this.title = title;
         this.description = description;
         this.question = question;

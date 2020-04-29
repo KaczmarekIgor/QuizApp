@@ -1,4 +1,4 @@
-package com.example.customlogin.service.user;
+package com.example.customlogin.service.user.quiz;
 
 
 import com.example.customlogin.entity.UserEntity;

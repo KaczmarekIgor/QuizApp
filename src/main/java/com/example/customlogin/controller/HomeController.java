@@ -4,7 +4,7 @@ package com.example.customlogin.controller;
 import com.example.customlogin.exception.UserExistsException;
 import com.example.customlogin.form.LoginForm;
 import com.example.customlogin.form.UserRegisterForm;
-import com.example.customlogin.service.user.UserService;
+import com.example.customlogin.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;

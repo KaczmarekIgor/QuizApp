@@ -7,19 +7,6 @@
 </head>
 <body>
 <div style="text-align: center;"><h1>QUIZ "SLOWAK Z DZIESIECIU"</h1></div>
-<div style="text-align: center">
-    <tr th:each="quiz: ${quizList}">
-
-        <h1>
-            <td th:text="${quiz.getTitle()}"/>
-            <br>
-        </h1>
-        <td th:text="${quiz.getDescription()}"/>
-        <br>
-        <td th:text="${quiz.getQuestion()}"/>
-        <br>
-        <p>---------------------------------</p>
-</div>
 
 </tr>
 <div style="text-align: center">
