@@ -1,73 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
-
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
 <body>
 
-
 <h1> REGISTRATION FORM</h1>
-<div layout:fragment="content" >
+<div layout:fragment="content">
     <div class="container">
-        <p th:text="${message}" />
+        <p th:text="${message}"/>
+        <div layout:fragment="content">
+            <div class="container">
+                <p th:text="${message}"/>
 
-
-        <form th:action="@{/registration}" method="post" th:object="${form}">
-            <label>Login</label>
-            <input th:type="text" th:field="*{login}"/>
-            <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name Error</div>
-            <br/>
-            <label>Password</label>
-            <input th:type="text" th:field="*{password}"/>
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
-            <br/>
-            <label>Repeated password</label>
-            <input th:type="text" th:field="*{repeatedPassword}"/>
-            <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}">Repeated password
+                <form th:action="@{/registration}" method="post" th:object="${form}">
+                    <label>Login</label>
+                    <input th:type="text" th:field="*{login}"/>
+                    <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name Error</div>
+                    <br/>
+                    <label>Password</label>
+                    <input th:type="text" th:field="*{password}"/>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+                    <br/>
+                    <label>Repeated password</label>
+                    <input th:type="text" th:field="*{repeatedPassword}"/>
+                    <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}">Repeated
+                        password
+                    </div>
+                    <br/>
+                    <label>Username</label>
+                    <input th:type="text" th:field="*{userName}"/>
+                    <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User name</div>
+                    <br/>
+                    <button th:type="submit">Sign in</button>
+                </form>
             </div>
-            <br/>
-            <label>Username</label>
-            <input th:type="text" th:field="*{userName}"/>
-            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User name</div>
-            <br/>
-            <button th:type="submit">Sign in</button>
-        </form>
+        </div>
 
+        <div class="LOGIN"><h1> LOGIN FORM</h1>
 
+            <div layout:fragment="content">
+                <div class="container">
+                    <form th:action="@{/login}" method="post" th:object="${form}">
+                        <label>User Name</label>
+                        <input th:type="text" th:field="*{userName}"/>
+                        <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</div>
+                        <br/>
+                        <label>Password</label>
+                        <input th:type="text" th:field="*{password}"/>
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+                        <br/>
+                        <button th:type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="LOGIN"> <h1> LOGIN FORM</h1>
-
-
-
-    <form name="f" th:action="@{/login}" method="post">
-        </fieldset>
-        <legend>Please Login</legend>
-        <div th:if="${param.error}" class="alert alert-error">
-            Invalid username or password
-        </div>
-        <div th:if="${param.logout}" class="alert alter-success">
-            You have been logged out.
-        </div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username"/>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password"/>
-        <div class="form-actions">
-            <button type="submit" class="btn"> Log in</button>
-        </div>
-        </fieldset>
-    </form>
-
-
-
 </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.example.customlogin.exception.UserExistsException;
 import com.example.customlogin.form.LoginForm;
 import com.example.customlogin.form.UserRegisterForm;
 import com.example.customlogin.service.UserService;
+import com.example.customlogin.validator.RegistrationFormValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -20,9 +21,11 @@ public class HomeController {
 
 
     private final UserService userService;
+    private final RegistrationFormValidator validator;
 
-    public HomeController(UserService userService) {
+    public HomeController(UserService userService, RegistrationFormValidator validator) {
         this.userService = userService;
+        this.validator = validator;
     }
 
 
@@ -33,11 +36,11 @@ public class HomeController {
         return mvn;
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ModelAndView login() {
-        ModelAndView mvn = new ModelAndView("login");
+        ModelAndView mvn = new ModelAndView("home");
         mvn.addObject("login", new LoginForm());
-        return mvn;
+        return new ModelAndView("redirect:/quiz");
     }
 
 
@@ -55,7 +58,12 @@ public class HomeController {
             modelAndView.addObject("message", e.getMessage());
             return modelAndView;
         }
-        return new ModelAndView("redirect:/quizCategory");
+        return new ModelAndView("redirect:/quiz");
+    }
+
+
+    public RegistrationFormValidator getValidator() {
+        return validator;
     }
 }
 

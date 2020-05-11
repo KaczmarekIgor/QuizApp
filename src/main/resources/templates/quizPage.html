@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      xmlns:th="http://www.w3.org/1999/xhtml">ł
 <head>
     <meta charset="UTF-8">
     <title>Hello World</title>
@@ -8,12 +8,9 @@
 <body>
 <div style="text-align: center;"><h1>QUIZ "SLOWAK Z DZIESIECIU"</h1></div>
 <div style="text-align: center">
-<tr th:each="quizPage: ${quizCategory}">
+    <tr th:each="quizPage: ${'quizCategory'}">
 
-    <h1>
- <td th:text="${quizPage.getCategory()}"/>
-    </h1>
-</tr>
+    </tr>
 </div>
 </body>
 </html>
